@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="tb_cast")
-public class Cast implements Serializable {
+@Table(name = "tb_actor")
+public class Actor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -17,12 +17,12 @@ public class Cast implements Serializable {
     private String birthdate;
     private String deathdate;
     private Integer age;
-    private String maritalStatus;
+    private String maritalStatus; //Enum
 
-    public Cast(){}
+    public Actor() {
+    }
 
-    public Cast(Long id, String name, String hometown, String birthdate, String deathdate, Integer age, String maritalStatus) {
-        this.id = id;
+    public Actor(String name, String hometown, String birthdate, String deathdate, Integer age, String maritalStatus) {
         this.name = name;
         this.hometown = hometown;
         this.birthdate = birthdate;
@@ -31,16 +31,16 @@ public class Cast implements Serializable {
         this.maritalStatus = maritalStatus;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {

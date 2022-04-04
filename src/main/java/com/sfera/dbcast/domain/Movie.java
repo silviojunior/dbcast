@@ -1,21 +1,27 @@
 package com.sfera.dbcast.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-public class Movie implements Serializable{
+@Entity
+@Table(name = "tb_movie")
+public class Movie implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String subtitle;
     private String releaseDate;
     private String direction;
-    private Long budget;
+    private Double budget;
 
-    public Movie(){}
+    public Movie() {
+    }
 
-    public Movie(Long id, String title, String subtitle, String releaseDate, String direction, Long budget) {
-        this.id = id;
+    public Movie(String title, String subtitle, String releaseDate, String direction, Double budget) {
         this.title = title;
         this.subtitle = subtitle;
         this.releaseDate = releaseDate;
@@ -63,11 +69,11 @@ public class Movie implements Serializable{
         this.direction = direction;
     }
 
-    public Long getBudget() {
+    public Double getBudget() {
         return budget;
     }
 
-    public void setBudget(Long budget) {
+    public void setBudget(Double budget) {
         this.budget = budget;
     }
 }
