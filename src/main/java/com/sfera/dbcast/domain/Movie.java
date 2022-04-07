@@ -2,6 +2,8 @@ package com.sfera.dbcast.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_movie")
@@ -17,6 +19,12 @@ public class Movie implements Serializable {
     private String releaseDate;
     private String direction;
     private Double budget;
+
+    @ManyToMany(mappedBy = "movies")
+    private List<Character> characters = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "movies")
+    private List<Actor> actors = new ArrayList<>();
 
     public Movie() {
     }
@@ -76,4 +84,12 @@ public class Movie implements Serializable {
     public void setBudget(Double budget) {
         this.budget = budget;
     }
+
+    public List<Character> getCharacters() { return characters; }
+
+    public void setCharacters(List<Character> characters) { this.characters = characters; }
+
+    public List<Actor> getActors() { return actors; }
+
+    public void setActors(List<Actor> actors) { this.actors = actors; }
 }
