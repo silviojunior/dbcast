@@ -38,6 +38,7 @@ public class ActorService {
 
     private void updateData(Actor actor, Actor newActor) {
         newActor.setName(actor.getName());
+        newActor.setNickname(actor.getNickname());
         newActor.setHometown(actor.getHometown());
         newActor.setBirthdate(actor.getBirthdate());
         newActor.setDeathdate(actor.getDeathdate());

@@ -1,6 +1,5 @@
 package com.sfera.dbcast.resources;
 
-import com.sfera.dbcast.repositories.CharacterRepository;
 import com.sfera.dbcast.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

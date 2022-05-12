@@ -17,11 +17,13 @@ public class Actor implements Serializable {
     private Long id;
 
     private String name;
+    private String nickname;
     private String hometown;
     private String birthdate;
     private String deathdate;
     private Integer age;
-    private String maritalStatus; //Enum
+    private String maritalStatus;
+    private String pathToPicture;
 
     @JsonIgnore
     @ManyToMany
@@ -44,13 +46,15 @@ public class Actor implements Serializable {
     public Actor() {
     }
 
-    public Actor(String name, String hometown, String birthdate, String deathdate, Integer age, String maritalStatus) {
+    public Actor(String name, String nickname,String hometown, String birthdate, String deathdate, Integer age, String maritalStatus, String pathToPicture) {
         this.name = name;
+        this.nickname = nickname;
         this.hometown = hometown;
         this.birthdate = birthdate;
         this.deathdate = deathdate;
         this.age = age;
         this.maritalStatus = maritalStatus;
+        this.pathToPicture = pathToPicture;
     }
 
     public Long getId() {
@@ -68,6 +72,10 @@ public class Actor implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getNickname() { return nickname; }
+
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
     public String getHometown() {
         return hometown;
@@ -108,6 +116,10 @@ public class Actor implements Serializable {
     public void setMaritalStatus(String maritalStatus) {
         this.maritalStatus = maritalStatus;
     }
+
+    public String getPathToPicture() { return pathToPicture; }
+
+    public void setPathToPicture(String pathToPicture) { this.pathToPicture = pathToPicture; }
 
     public List<Character> getCharacters() { return characters; }
 
