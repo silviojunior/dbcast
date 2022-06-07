@@ -8,7 +8,18 @@ INSERT INTO tb_character (name, type, description) VALUES ('Rajesh Ramayan Kooth
 INSERT INTO tb_character (name, type, description) VALUES ('Bernadette Maryann Rostenkowski-Wolowitz','Protagonist', 'Bernadette is a supporting character of The Big Bang Theory and a former waitress at the Cheesecake Factory and has earned her Ph.D. in microbiology who has a lucrative job at the pharmaceutical company ZanGen.');
 
 -- TB_MOVIE
-INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/TheBigBangTheory.jpg','The Big Bang Theory', '', '24/09/2007', 'Mark Cendrowski', 9000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s1.jpg','The Big Bang Theory S 1', '', '24/09/2007', 'Mark Cendrowski', 9000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s2.jpg','The Big Bang Theory S 2', '', '22/09/2008', 'Mark Cendrowski', 10000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s3.jpg','The Big Bang Theory S 3', '', '21/09/2009', 'Mark Cendrowski', 15000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s4.jpg','The Big Bang Theory S 4', '', '23/09/2010', 'Mark Cendrowski', 12000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s5.jpg','The Big Bang Theory S 5', '', '22/09/2011', 'Mark Cendrowski', 9500000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s6.jpg','The Big Bang Theory S 6', '', '27/09/2012', 'Mark Cendrowski', 11000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s7.jpg','The Big Bang Theory S 7', '', '26/09/2013', 'Mark Cendrowski', 20000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s8.jpg','The Big Bang Theory S 8', '', '22/09/2014', 'Mark Cendrowski', 12500000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s9.jpg','The Big Bang Theory S 9', '', '21/09/2015', 'Mark Cendrowski', 18000000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s10.jpg','The Big Bang Theory S 10', '', '19/09/2016', 'Mark Cendrowski', 16500000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s11.jpg','The Big Bang Theory S 11', '', '25/09/2017', 'Mark Cendrowski', 15300000.00);
+INSERT INTO tb_movie (path_to_image,title, subtitle, release_date, direction, budget) values ('http://localhost:8080/img/tbbt-s12.jpg','The Big Bang Theory S 12', '', '24/09/2018', 'Mark Cendrowski', 14400000.00);
 
 -- TB_MOVIES_CHARACTERS
 INSERT INTO tb_movies_characters (movie_id, character_id) VALUES (1,1);
