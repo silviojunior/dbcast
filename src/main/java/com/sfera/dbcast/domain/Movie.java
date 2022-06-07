@@ -14,6 +14,7 @@ public class Movie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String pathToImage;
     private String title;
     private String subtitle;
     private String releaseDate;
@@ -23,13 +24,11 @@ public class Movie implements Serializable {
     @ManyToMany(mappedBy = "movies")
     private List<Character> characters = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "movies")
-    private List<Actor> actors = new ArrayList<>();
-
     public Movie() {
     }
 
-    public Movie(String title, String subtitle, String releaseDate, String direction, Double budget) {
+    public Movie(String pathToImage, String title, String subtitle, String releaseDate, String direction, Double budget) {
+        this.pathToImage = pathToImage;
         this.title = title;
         this.subtitle = subtitle;
         this.releaseDate = releaseDate;
@@ -44,6 +43,10 @@ public class Movie implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public String getPathToImage() { return pathToImage; }
+
+    public void setPathToImage(String pathToImage) { this.pathToImage = pathToImage; }
 
     public String getTitle() {
         return title;
@@ -89,7 +92,4 @@ public class Movie implements Serializable {
 
     public void setCharacters(List<Character> characters) { this.characters = characters; }
 
-    public List<Actor> getActors() { return actors; }
-
-    public void setActors(List<Actor> actors) { this.actors = actors; }
 }
