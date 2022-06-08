@@ -1,16 +1,15 @@
 package com.sfera.dbcast.resources;
 
+import com.sfera.dbcast.domain.Character;
 import com.sfera.dbcast.services.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/character")
@@ -28,17 +27,28 @@ public class CharacterController {
 
     }
 
-/*    @GetMapping()
+    @GetMapping()
     public ResponseEntity<List<Character>> findAll() {
 
         return ResponseEntity.ok().body(characterService.findAll());
+    }
+
+    @GetMapping(value = "/movieCharacters/{movieId}")
+    public ResponseEntity<List<Character>> getMovieCharacters(@PathVariable Long movieId){
+
+        return ResponseEntity.ok().body(characterService.getMovieCharacters(movieId));
+    }
+
+    @GetMapping(value = "/byName/{name}")
+    public ResponseEntity<List<Character>> getMoviesByTitle(@PathVariable String name){
+        return ResponseEntity.ok().body(characterService.getCharactersByName(name));
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Character> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(characterService.findById(id));
     }
-
+/*
     @PostMapping
     public ResponseEntity<Void> saveCharacter(@RequestBody Character character) {
 

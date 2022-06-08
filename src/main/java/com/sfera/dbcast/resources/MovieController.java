@@ -33,13 +33,22 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.findAll());
     }
 
-    /*
+    @GetMapping(value = "/filmography/{characterId}")
+    public ResponseEntity<List<Movie>> getFilmography(@PathVariable Long characterId){
+
+        return ResponseEntity.ok().body(movieService.getFilmography(characterId));
+    }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Movie> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(movieService.findById(id));
     }
 
+    @GetMapping(value = "/byTitle/{title}")
+    public ResponseEntity<List<Movie>> getMoviesByTitle(@PathVariable String title){
+        return ResponseEntity.ok().body(movieService.getMoviesByTitle(title));
+    }
+/*
     @PostMapping
     public ResponseEntity<Void> saveMovie(@RequestBody Movie movie) {
 

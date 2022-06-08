@@ -25,11 +25,11 @@ public class MovieService {
 
         return movieRepository.findAll();
     }
-/*
+
     public Movie findById(Long id) {
 
         return movieRepository.findById(id).orElse(null);
-    }*/
+    }
 
     public void save(String jsonMovie, MultipartFile image) throws IOException{
 
@@ -88,6 +88,15 @@ public class MovieService {
         } else {
             return Optional.of(fileName.substring(indexOfLastDot + 1));
         }
+    }
+
+    public List<Movie> getFilmography(Long characterId) {
+
+        return movieRepository.findAllByCharacters_Id(characterId);
+    }
+
+    public List<Movie> getMoviesByTitle(String title) {
+        return movieRepository.findByTitleContainsIgnoreCase(title);
     }
 
 /*    public void update(Movie movie) {

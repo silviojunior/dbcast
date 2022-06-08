@@ -17,7 +17,8 @@ public class Character implements Serializable {
     private Long id;
 
     private String name;
-    private String type; // Enum
+    private String alsoKnownAs;
+    private String type;
     private String description;
     private String pathToImage;
 
@@ -30,14 +31,12 @@ public class Character implements Serializable {
     )
     private List<Movie> movies = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "characters")
-    private List<Actor> actors = new ArrayList<>();
-
     public Character() {
     }
 
-    public Character(String name, String type, String description, String pathToImage) {
+    public Character(String name, String alsoKnownAs, String type, String description, String pathToImage) {
         this.name = name;
+        this.alsoKnownAs = alsoKnownAs;
         this.type = type;
         this.description = description;
         this.pathToImage = pathToImage;
@@ -59,6 +58,10 @@ public class Character implements Serializable {
         this.name = name;
     }
 
+    public String getAlsoKnownAs() { return alsoKnownAs; }
+
+    public void setAlsoKnownAs(String alsoKnownAs) { this.alsoKnownAs = alsoKnownAs; }
+
     public String getType() {
         return type;
     }
@@ -75,14 +78,6 @@ public class Character implements Serializable {
         this.description = description;
     }
 
-    public List<Movie> getMovies() { return movies; }
-
-    public void setMovies(List<Movie> movies) { this.movies = movies; }
-
-    public List<Actor> getActors() { return actors; }
-
-    public void setActors(List<Actor> actors) { this.actors = actors; }
-
     public String getPathToImage() {
         return pathToImage;
     }
@@ -90,4 +85,9 @@ public class Character implements Serializable {
     public void setPathToImage(String pathToImage) {
         this.pathToImage = pathToImage;
     }
+
+    public List<Movie> getMovies() { return movies; }
+
+    public void setMovies(List<Movie> movies) { this.movies = movies; }
+
 }

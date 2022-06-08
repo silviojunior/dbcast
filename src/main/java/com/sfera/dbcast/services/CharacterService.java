@@ -3,12 +3,12 @@ package com.sfera.dbcast.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sfera.dbcast.domain.Character;
 import com.sfera.dbcast.repositories.CharacterRepository;
-import com.sfera.dbcast.resources.CharacterController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +22,7 @@ public class CharacterService {
     @Autowired
     private CharacterRepository characterRepository;
 
-/*    public List<Character> findAll() {
+    public List<Character> findAll() {
 
         return characterRepository.findAll();
     }
@@ -30,7 +30,7 @@ public class CharacterService {
     public Character findById(Long id) {
 
         return characterRepository.findById(id).orElse(null);
-    }*/
+    }
 
     public void save(String jsonCharacter, MultipartFile image) throws IOException{
 
@@ -89,6 +89,16 @@ public class CharacterService {
         } else {
             return Optional.of(fileName.substring(indexOfLastDot + 1));
         }
+    }
+
+    public List<Character> getMovieCharacters(Long movieId) {
+
+        return characterRepository.findAllByMovies_Id(movieId);
+    }
+
+    public List<Character> getCharactersByName(String name) {
+
+        return characterRepository.findByNameContainsIgnoreCaseOrAlsoKnownAsContainsIgnoreCase(name, name);
     }
 
 /*    public void update(Character character) {
