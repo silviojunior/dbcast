@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +57,19 @@ public class MovieService {
             try (OutputStream out = new FileOutputStream(fileLocation)) {
                 copy(in, out);
             }
+        }
+    }
+
+    public void deleteImage(Movie movie){
+        String fileName = movie.getPathToImage().substring(26, movie.getPathToImage().length());
+
+        Path staticFolderPath = Paths.get(STATIC_FOLDER_URL + fileName);
+        Path targetFolderPath = Paths.get(TARGET_STATIC_FOLDER_URL + fileName);
+        try {
+            Files.delete(staticFolderPath);
+            Files.delete(targetFolderPath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -119,6 +135,7 @@ public class MovieService {
 
         try {
             movieRepository.delete(movie);
+            deleteImage(movie);
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
