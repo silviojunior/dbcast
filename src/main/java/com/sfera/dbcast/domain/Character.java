@@ -1,11 +1,9 @@
 package com.sfera.dbcast.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_character")
@@ -22,14 +20,8 @@ public class Character implements Serializable {
     private String description;
     private String pathToImage;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name="tb_movies_characters",
-            joinColumns = @JoinColumn(name = "character_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
-    )
-    private List<Movie> movies = new ArrayList<>();
+    @ManyToMany(mappedBy = "characters")
+    private Set<Movie> movies = new HashSet<>();
 
     public Character() {
     }
@@ -86,8 +78,8 @@ public class Character implements Serializable {
         this.pathToImage = pathToImage;
     }
 
-    public List<Movie> getMovies() { return movies; }
+    public Set<Movie> getMovies() { return movies; }
 
-    public void setMovies(List<Movie> movies) { this.movies = movies; }
+    public void setMovies(Set<Movie> movies) { this.movies = movies; }
 
 }

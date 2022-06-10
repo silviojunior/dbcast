@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +100,7 @@ public class CharacterService {
         return characterRepository.findByNameContainsIgnoreCaseOrAlsoKnownAsContainsIgnoreCase(name, name);
     }
 
-/*    public void update(Character character) {
+    public void update(Character character) {
 
         Character newCharacter = find(character.getId());
         updateData(character, newCharacter);
@@ -111,11 +110,12 @@ public class CharacterService {
 
     private void updateData(Character character, Character newCharacter) {
         newCharacter.setName(character.getName());
-        newCharacter.setHometown(character.getHometown());
-        newCharacter.setBirthdate(character.getBirthdate());
-        newCharacter.setDeathdate(character.getDeathdate());
-        newCharacter.setAge(character.getAge());
-        newCharacter.setMaritalStatus(character.getMaritalStatus());
+        newCharacter.setAlsoKnownAs(character.getAlsoKnownAs());
+        newCharacter.setType(character.getType());
+        newCharacter.setDescription(character.getDescription());
+        newCharacter.setPathToImage(character.getPathToImage());
+
+        newCharacter.setMovies(character.getMovies());
     }
 
     public void delete(Long id) {
@@ -135,5 +135,5 @@ public class CharacterService {
         Optional<Character> character = characterRepository.findById(id);
 
         return character.orElse(null);
-    }*/
+    }
 }

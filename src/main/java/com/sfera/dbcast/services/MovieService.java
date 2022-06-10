@@ -31,44 +31,41 @@ public class MovieService {
         return movieRepository.findById(id).orElse(null);
     }
 
-    public void save(String jsonMovie, MultipartFile image) throws IOException{
+    public void save(String jsonMovie, MultipartFile image) throws IOException {
 
-        final String fileExtension = Optional.ofNullable(image.getOriginalFilename())
-                .flatMap(MovieService::getFileExtension)
-                .orElse("");
+        final String fileExtension = Optional.ofNullable(image.getOriginalFilename()).flatMap(MovieService::getFileExtension).orElse("");
 
         Movie movie = movieFromJson(jsonMovie);
+
         String charName = movie.getTitle().replaceAll("\\s+", "");
         String fileName = charName + "." + fileExtension;
 
-        storeImage(TARGET_STATIC_FOLDER_URL,fileName,image);
-        storeImage(STATIC_FOLDER_URL,fileName,image);
-        movie.setPathToImage(BASE_URL+fileName);
+        storeImage(TARGET_STATIC_FOLDER_URL, fileName, image);
+        storeImage(STATIC_FOLDER_URL, fileName, image);
+        movie.setPathToImage(BASE_URL + fileName);
         movieRepository.save(movie);
     }
 
-    public void storeImage(String pathName, String fileName, MultipartFile file) throws IOException{
+    public void storeImage(String pathName, String fileName, MultipartFile file) throws IOException {
 
         String fileLocation = new File(pathName).getPath() + "/" + fileName;
 
-        try(InputStream in = file.getInputStream()){
-            try(OutputStream out = new FileOutputStream(fileLocation)){
+        try (InputStream in = file.getInputStream()) {
+            try (OutputStream out = new FileOutputStream(fileLocation)) {
                 copy(in, out);
             }
         }
     }
 
-    public Movie movieFromJson(String jsonMovie){
+    public Movie movieFromJson(String jsonMovie) {
 
         Movie movie = new Movie();
 
-        try{
-            ObjectMapper om = new ObjectMapper();
-            movie = om.readValue(jsonMovie, Movie.class);
-        }catch (IOException err){
+        try {
+            movie = new ObjectMapper().readerFor(Movie.class).readValue(jsonMovie);
+        } catch (IOException err) {
             System.out.printf("Error", err.toString());
         }
-
         return movie;
     }
 
@@ -99,7 +96,7 @@ public class MovieService {
         return movieRepository.findByTitleContainsIgnoreCase(title);
     }
 
-/*    public void update(Movie movie) {
+    public void update(Movie movie) {
 
         Movie newMovie = find(movie.getId());
         updateData(movie, newMovie);
@@ -108,12 +105,12 @@ public class MovieService {
     }
 
     private void updateData(Movie movie, Movie newMovie) {
-        newMovie.setName(movie.getName());
-        newMovie.setHometown(movie.getHometown());
-        newMovie.setBirthdate(movie.getBirthdate());
-        newMovie.setDeathdate(movie.getDeathdate());
-        newMovie.setAge(movie.getAge());
-        newMovie.setMaritalStatus(movie.getMaritalStatus());
+        newMovie.setTitle(movie.getTitle());
+        newMovie.setSubtitle(movie.getSubtitle());
+        newMovie.setBudget(movie.getBudget());
+        newMovie.setPathToImage(movie.getPathToImage());
+        newMovie.setDirection(movie.getDirection());
+        newMovie.setReleaseDate(movie.getReleaseDate());
     }
 
     public void delete(Long id) {
@@ -133,5 +130,5 @@ public class MovieService {
         Optional<Movie> movie = movieRepository.findById(id);
 
         return movie.orElse(null);
-    }*/
+    }
 }

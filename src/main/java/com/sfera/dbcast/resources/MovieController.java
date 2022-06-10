@@ -19,7 +19,7 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> uploadImage(@RequestPart("movie") String personagem, @RequestPart("image") MultipartFile imagem) throws IOException{
+    public ResponseEntity<Void> save(@RequestPart("movie") String personagem, @RequestPart("image") MultipartFile imagem) throws IOException {
 
         movieService.save(personagem, imagem);
 
@@ -34,7 +34,7 @@ public class MovieController {
     }
 
     @GetMapping(value = "/filmography/{characterId}")
-    public ResponseEntity<List<Movie>> getFilmography(@PathVariable Long characterId){
+    public ResponseEntity<List<Movie>> getFilmography(@PathVariable Long characterId) {
 
         return ResponseEntity.ok().body(movieService.getFilmography(characterId));
     }
@@ -45,17 +45,8 @@ public class MovieController {
     }
 
     @GetMapping(value = "/byTitle/{title}")
-    public ResponseEntity<List<Movie>> getMoviesByTitle(@PathVariable String title){
+    public ResponseEntity<List<Movie>> getMoviesByTitle(@PathVariable String title) {
         return ResponseEntity.ok().body(movieService.getMoviesByTitle(title));
-    }
-/*
-    @PostMapping
-    public ResponseEntity<Void> saveMovie(@RequestBody Movie movie) {
-
-        movie.setId(null);
-        movieService.save(movie);
-
-        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
@@ -72,6 +63,6 @@ public class MovieController {
 
         movieService.delete(id);
         return ResponseEntity.noContent().build();
-    }*/
+    }
 
 }
