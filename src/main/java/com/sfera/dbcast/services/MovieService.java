@@ -61,7 +61,7 @@ public class MovieService {
     }
 
     public void deleteImage(Movie movie){
-        String fileName = movie.getPathToImage().substring(26, movie.getPathToImage().length());
+        String fileName = movie.getPathToImage().substring(BASE_URL.length(), movie.getPathToImage().length());
 
         Path staticFolderPath = Paths.get(STATIC_FOLDER_URL + fileName);
         Path targetFolderPath = Paths.get(TARGET_STATIC_FOLDER_URL + fileName);
