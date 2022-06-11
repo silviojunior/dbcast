@@ -40,7 +40,7 @@ public class CharacterController {
     }
 
     @GetMapping(value = "/byName/{name}")
-    public ResponseEntity<List<Character>> getMoviesByTitle(@PathVariable String name){
+    public ResponseEntity<List<Character>> getCharactersByName(@PathVariable String name){
         return ResponseEntity.ok().body(characterService.getCharactersByName(name));
     }
 

@@ -1,5 +1,7 @@
 package com.sfera.dbcast.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -78,6 +80,7 @@ public class Character implements Serializable {
         this.pathToImage = pathToImage;
     }
 
+    @JsonIgnore
     public Set<Movie> getMovies() { return movies; }
 
     public void setMovies(Set<Movie> movies) { this.movies = movies; }
