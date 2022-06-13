@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,17 +36,22 @@ public class CharacterService {
 
     public void save(String jsonCharacter, MultipartFile image) throws IOException{
 
-        final String fileExtension = Optional.ofNullable(image.getOriginalFilename())
-                .flatMap(CharacterService::getFileExtension)
-                .orElse("");
-
         Character character = characterFromJson(jsonCharacter);
-        String charName = character.getName().replaceAll("\\s+", "");
-        String fileName = charName + "." + fileExtension;
 
-        storeImage(TARGET_STATIC_FOLDER_URL,fileName,image);
-        storeImage(STATIC_FOLDER_URL,fileName,image);
-        character.setPathToImage(BASE_URL+fileName);
+        if(image != null){
+            final String fileExtension = Optional.ofNullable(image.getOriginalFilename())
+                    .flatMap(CharacterService::getFileExtension)
+                    .orElse("");
+
+            String charName = character.getName().replaceAll("\\s+", "");
+            String fileName = charName + "." + fileExtension;
+
+            character.setPathToImage(BASE_URL + fileName);
+
+            storeImage(TARGET_STATIC_FOLDER_URL,fileName,image);
+            storeImage(STATIC_FOLDER_URL,fileName,image);
+        }
+
         characterRepository.save(character);
     }
 
@@ -55,6 +63,19 @@ public class CharacterService {
             try(OutputStream out = new FileOutputStream(fileLocation)){
                 copy(in, out);
             }
+        }
+    }
+
+    public void deleteCharacterImage(Character character){
+        String fileName = character.getPathToImage().substring(BASE_URL.length(), character.getPathToImage().length());
+
+        Path staticFolderPath = Paths.get(STATIC_FOLDER_URL + fileName);
+        Path targetFolderPath = Paths.get(TARGET_STATIC_FOLDER_URL + fileName);
+        try {
+            Files.delete(staticFolderPath);
+            Files.delete(targetFolderPath);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -100,12 +121,28 @@ public class CharacterService {
         return characterRepository.findByNameContainsIgnoreCaseOrAlsoKnownAsContainsIgnoreCase(name, name);
     }
 
-    public void update(Character character) {
+    public void update(String jsonCharacter, MultipartFile image) throws IOException{
 
-        Character newCharacter = find(character.getId());
-        updateData(character, newCharacter);
+        Character character = characterFromJson(jsonCharacter);
 
-        characterRepository.save(newCharacter);
+        if(image != null){
+            final String fileExtension = Optional.ofNullable(image.getOriginalFilename())
+                    .flatMap(CharacterService::getFileExtension)
+                    .orElse("");
+
+            String charName = character.getName().replaceAll("\\s+", "");
+            String fileName = charName + "." + fileExtension;
+
+            storeImage(TARGET_STATIC_FOLDER_URL,fileName,image);
+            storeImage(STATIC_FOLDER_URL,fileName,image);
+
+            character.setPathToImage(BASE_URL + fileName);
+        }
+
+        Character newChar = find(character.getId());
+        updateData(character, newChar);
+
+        characterRepository.save(newChar);
     }
 
     private void updateData(Character character, Character newCharacter) {
@@ -113,9 +150,7 @@ public class CharacterService {
         newCharacter.setAlsoKnownAs(character.getAlsoKnownAs());
         newCharacter.setType(character.getType());
         newCharacter.setDescription(character.getDescription());
-        newCharacter.setPathToImage(character.getPathToImage());
-
-        newCharacter.setMovies(character.getMovies());
+        newCharacter.setPathToImage(character.getPathToImage() != null ? character.getPathToImage() : newCharacter.getPathToImage());
     }
 
     public void delete(Long id) {
@@ -124,6 +159,7 @@ public class CharacterService {
 
         try {
             characterRepository.delete(character);
+            deleteCharacterImage(character);
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();

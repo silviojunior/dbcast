@@ -19,7 +19,7 @@ public class CharacterController {
     private CharacterService characterService;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> save(@RequestPart("character") String personagem, @RequestPart("image") MultipartFile imagem) throws IOException{
+    public ResponseEntity<Void> save(@RequestPart("character") String personagem, @RequestPart(value = "image", required = false) MultipartFile imagem) throws IOException{
 
         characterService.save(personagem, imagem);
 
@@ -49,18 +49,16 @@ public class CharacterController {
         return ResponseEntity.ok().body(characterService.findById(id));
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Character character) {
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Void> update(@RequestPart("character") String personagem, @RequestPart(value = "image", required = false) MultipartFile imagem) throws IOException{
 
-        character.setId(id);
-        characterService.update(character);
+        characterService.update(personagem, imagem);
 
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCharacter(@PathVariable Long id) {
-
         characterService.delete(id);
         return ResponseEntity.noContent().build();
     }

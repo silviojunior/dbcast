@@ -60,7 +60,7 @@ public class MovieService {
         }
     }
 
-    public void deleteImage(Movie movie){
+    public void deleteMovieImage(Movie movie){
         String fileName = movie.getPathToImage().substring(BASE_URL.length(), movie.getPathToImage().length());
 
         Path staticFolderPath = Paths.get(STATIC_FOLDER_URL + fileName);
@@ -135,7 +135,7 @@ public class MovieService {
 
         try {
             movieRepository.delete(movie);
-            deleteImage(movie);
+            deleteMovieImage(movie);
         } catch (Exception e) {
             e.getMessage();
             e.printStackTrace();
