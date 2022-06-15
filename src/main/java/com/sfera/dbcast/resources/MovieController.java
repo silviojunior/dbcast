@@ -19,9 +19,8 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> save(@RequestPart("movie") String personagem, @RequestPart("image") MultipartFile imagem) throws IOException {
-
-        movieService.save(personagem, imagem);
+    public ResponseEntity<Void> save(@RequestPart("movie") String jsonFilme, @RequestPart("image") MultipartFile imagem) throws IOException {
+        movieService.save(jsonFilme, imagem);
 
         return ResponseEntity.noContent().build();
 
@@ -49,11 +48,9 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.getMoviesByTitle(title));
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody Movie movie) {
-
-        movie.setId(id);
-        movieService.update(movie);
+    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<Void> update(@RequestPart("movie") String jsonFilme, @RequestPart("image") MultipartFile imagem) throws IOException{
+        movieService.update(jsonFilme, imagem);
 
         return ResponseEntity.noContent().build();
     }
