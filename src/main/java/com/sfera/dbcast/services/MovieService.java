@@ -83,9 +83,10 @@ public class MovieService {
         newMovie.setTitle(movie.getTitle());
         newMovie.setSubtitle(movie.getSubtitle());
         newMovie.setBudget(movie.getBudget());
-        newMovie.setPathToImage(movie.getPathToImage());
         newMovie.setDirection(movie.getDirection());
         newMovie.setReleaseDate(movie.getReleaseDate());
+        newMovie.setPathToImage(movie.getPathToImage() != null ? movie.getPathToImage() : newMovie.getPathToImage());
+        newMovie.setCharacters(movie.getCharacters());
     }
 
     public void delete(Long id) {

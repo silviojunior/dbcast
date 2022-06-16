@@ -28,13 +28,11 @@ public class MovieController {
 
     @GetMapping()
     public ResponseEntity<List<Movie>> findAll() {
-
         return ResponseEntity.ok().body(movieService.findAll());
     }
 
     @GetMapping(value = "/filmography/{characterId}")
     public ResponseEntity<List<Movie>> getFilmography(@PathVariable Long characterId) {
-
         return ResponseEntity.ok().body(movieService.getFilmography(characterId));
     }
 
@@ -49,7 +47,7 @@ public class MovieController {
     }
 
     @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<Void> update(@RequestPart("movie") String jsonFilme, @RequestPart("image") MultipartFile imagem) throws IOException{
+    public ResponseEntity<Void> update(@RequestPart("movie") String jsonFilme, @RequestPart(value = "image", required = false) MultipartFile imagem) throws IOException{
         movieService.update(jsonFilme, imagem);
 
         return ResponseEntity.noContent().build();
